@@ -1,5 +1,5 @@
-function EyamlEncrypt()
- 
+function! EyamlEncrypt()
+
   " Yank current or last selection to register x
   normal! gv"xy
 
