@@ -4,7 +4,7 @@ function! Eyaml(subcommand)
   normal! gv"xy
 
   "put the content of register x through the eyaml binary and do some magic voodoo to it reg x
-  let shellcmd = 'eyaml ' . a:subcommand
+  let shellcmd = 'eyaml '. a:subcommand
   let output=system(shellcmd, @x)
 
   " strip newlines from output and put in register x
