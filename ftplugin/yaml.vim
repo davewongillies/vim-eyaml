@@ -1,5 +1,4 @@
 function! Eyaml(subcommand)
-
   " Yank current or last selection to register x
   normal! gv"xy
 
@@ -16,7 +15,28 @@ function! Eyaml(subcommand)
 endfunction
 
 function! EyamlEncrypt()
-  call Eyaml('encrypt -o string')
+  let g:eyaml_args = ""
+  " Default to pkcs7
+  if !exists("g:eyaml_encryption_method")
+      let g:eyaml_encryption_method = "pkcs7"
+  endif
+
+  if g:eyaml_encryption_method == "gpg"
+      if exists("g:eyaml_gpg_recipients_file")
+          let g:eyaml_args = " --gpg-recipients-file=" . g:eyaml_gpg_recipients_file
+      elseif exists("g:eyaml_gpg_recipients")
+          let g:eyaml_args = " --gpg-recipients=". g:eyaml_gpg_recipients
+      endif
+
+      if g:eyaml_gpg_always_trust == 1
+          let g:eyaml_args = g:eyaml_args . " --gpg-always-trust"
+      endif
+  endif
+
+  let g:eyaml_args = g:eyaml_args . " -n " . g:eyaml_encryption_method
+
+  call Eyaml("encrypt -o string " . g:eyaml_args)
+
 endfunction
 
 function! EyamlDecrypt()
