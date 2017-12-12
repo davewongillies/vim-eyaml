@@ -1,4 +1,4 @@
-if exists("b:current_syntax")
+if exists('b:current_syntax')
     finish
 endif
 
@@ -14,4 +14,4 @@ syn region eyamlEncode start="DEC.*::PKCS7\[" end="\]!"
 hi link eyamlKey    Identifier
 hi link eyamlEncode Special
 
-let b:current_syntax = "yaml"
+let b:current_syntax = 'yaml'

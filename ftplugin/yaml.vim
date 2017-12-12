@@ -3,11 +3,11 @@ function! Eyaml(subcommand)
   normal! gv"xy
 
   "put the content of register x through the eyaml binary and do some magic voodoo to it reg x
-  let shellcmd = 'eyaml ' . a:subcommand . ' --stdin 2>/dev/null'
-  let output=system(shellcmd, @x)
+  let l:shellcmd = 'eyaml ' . a:subcommand . ' --stdin 2>/dev/null'
+  let l:output=system(l:shellcmd, @x)
 
   " strip newlines from output and put in register x
-  let @x = substitute(output, '[\r\n]*$', '', '')
+  let @x = substitute(l:output, '[\r\n]*$', '', '')
 
   "re-select area and paste register x
   normal! gv"xp

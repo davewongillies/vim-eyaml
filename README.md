@@ -1,4 +1,4 @@
-# vim-eyaml
+# vim-eyaml ![](https://img.shields.io/github/license/davewongillies/vim-eyaml.svg)
 
 A vim plugin to encrypt and decrypt eyaml.
 
@@ -20,10 +20,10 @@ Plugin 'davewongillies/vim-eyaml'
 
 ## PKCS7 encryption
 
-Configure `~/.eyaml/config.yaml` with the path to the pkcs7 keys
+If you're using PKCS7 encryption, configure `~/.eyaml/config.yaml` with the path to the pkcs7 keys
 
 `~/.eyaml/config.yaml`
-```
+```yaml
 ---
 encrypt_method: pkcs7
 pkcs7_private_key: '~/.eyaml/keys/private_key.pkcs7.pem'
@@ -31,15 +31,15 @@ pkcs7_public_key: '~/.eyaml/keys/public_key.pkcs7.pem'
 ```
 
 ## GPG encryption
-
+If you're using GPG encryption, set `encrypt_method` to `gpg`:
 `~/.eyaml/config.yaml`
-```
+```yaml
 ---
 encrypt_method: gpg
 ```
 
 `~/.vimrc`
-```
+```yaml
 let g:eyaml_encryption_method: "gpg"
 
 " Optional settings
