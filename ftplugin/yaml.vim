@@ -3,14 +3,32 @@ function! Eyaml(subcommand)
   normal! gv"xy
 
   "put the content of register x through the eyaml binary and do some magic voodoo to it reg x
-  let l:shellcmd = 'eyaml ' . a:subcommand . ' --stdin 2>/dev/null'
+  let l:eyaml_cmd = 'eyaml '
+  let l:shellcmd = l:eyaml_cmd . ' ' . a:subcommand . ' --stdin 2>/dev/null'
   let l:output=system(l:shellcmd, @x)
 
-  " strip newlines from output and put in register x
-  let @x = substitute(l:output, '[\r\n]*$', '', '')
+  if !v:shell_error
+      " strip newlines from output and put in register x
+      let @x = substitute(l:output, '[\r\n]*$', '', '')
 
-  "re-select area and paste register x
-  normal! gv"xp
+      if a:subcommand =~# '^encrypt'
+          " Only match ENC[.*] lines
+          let @x = matchstr(@x, 'ENC\[.*\]')
+          if @x !~# 'ENC\[.*\]'
+              echom '[eyaml] No encrypted lines returned'
+          else
+              normal! gv"xp
+          endif
+      elseif a:subcommand =~# '^decrypt'
+          normal! gv"xp
+      endif
+  else
+      " When there's an error, run the command again without
+      " stderr stripped and print an error message
+      let l:shellcmd = l:eyaml_cmd . ' ' . a:subcommand . ' --stdin'
+      let l:output=system(l:shellcmd, @x)
+      echom '[eyaml] ' . l:output
+  endif
 
 endfunction
 
