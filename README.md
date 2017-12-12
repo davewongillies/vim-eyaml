@@ -46,6 +46,7 @@ let g:eyaml_encryption_method: "gpg"
 " let g:eyaml_gpg_always_trust = 1
 
 " Set one or the other, not both
+" If you don't set either, the plugin with search for hiera-eyaml-gpg.recipients
 " let g:eyaml_gpg_recipients_file = "hiera-eyaml-gpg.recipients"
 " let g:eyaml_gpg_recipients = 'someguy@gmail.com'
 ```
