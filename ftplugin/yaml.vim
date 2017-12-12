@@ -15,10 +15,10 @@ function! Eyaml(subcommand)
 endfunction
 
 function! EyamlEncrypt()
-  let g:eyaml_args = ""
+  let g:eyaml_args = ''
   " Default to pkcs7
-  if !exists("g:eyaml_encryption_method")
-      let g:eyaml_encryption_method = "pkcs7"
+  if !exists('g:eyaml_encryption_method')
+      let g:eyaml_encryption_method = 'pkcs7'
   endif
 
   if g:eyaml_encryption_method == "gpg"
@@ -29,13 +29,13 @@ function! EyamlEncrypt()
       endif
 
       if g:eyaml_gpg_always_trust == 1
-          let g:eyaml_args = g:eyaml_args . " --gpg-always-trust"
+          let g:eyaml_args = g:eyaml_args . ' --gpg-always-trust'
       endif
   endif
 
-  let g:eyaml_args = g:eyaml_args . " -n " . g:eyaml_encryption_method
+  let g:eyaml_args = g:eyaml_args . ' -n ' . g:eyaml_encryption_method
 
-  call Eyaml("encrypt -o string " . g:eyaml_args)
+  call Eyaml('encrypt -o string ' . g:eyaml_args)
 
 endfunction
 
