@@ -57,3 +57,8 @@ Use vim visual to select a string and then `:EyamlEncrypt` to have it replaced b
 
 ## To Decrypt
 Use vim visual to select a string and then `:EyamlDecrypt` to have it replaced by the eyaml equivalent
+
+# Authors & Contributors
+* Jonah Meijers
+* Arthur Holstvoog
+* David Gillies
