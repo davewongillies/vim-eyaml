@@ -15,7 +15,7 @@ function! Eyaml(subcommand)
           " Only match ENC[.*] lines
           let @x = matchstr(@x, 'ENC\[.*\]')
           if @x !~# 'ENC\[.*\]'
-              echom '[eyaml] No encrypted lines returned'
+              echoerr '[eyaml] No encrypted lines returned'
           else
               normal! gv"xp
           endif
@@ -27,7 +27,7 @@ function! Eyaml(subcommand)
       " stderr stripped and print an error message
       let l:shellcmd = l:eyaml_cmd . ' ' . a:subcommand . ' --stdin'
       let l:output=system(l:shellcmd, @x)
-      echom '[eyaml] ' . l:output
+      echoerr '[eyaml] ' . l:output
   endif
 
 endfunction
@@ -48,6 +48,11 @@ function! EyamlEncrypt()
           else
               let l:eyaml_gpg_recipients_file = findfile('hiera-eyaml-gpg.recipients', '*;/')
           end
+
+          if l:eyaml_gpg_recipients_file ==# ''
+              throw "[eyaml] Couldn't find recipient file " . g:eyaml_gpg_recipients_file
+          endif
+
           let g:eyaml_args = ' --gpg-recipients-file=' . l:eyaml_gpg_recipients_file
       endif
 
